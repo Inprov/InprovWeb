@@ -1,0 +1,14 @@
+.tabela-provas{
+padding-top: 3%;
+}
+
+body{
+background-color: #F2F2F2;
+}
+
+th {
+    text-align: center;
+}
+td{
+    text-align: center;
+}

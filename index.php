@@ -8,9 +8,15 @@
       <script src="js/jquery.js"></script>
       <script src="js/bootstrap.js"></script>
       <script src="js/inputmask-plugin.js"></script>
+      <link rel="stylesheet" href="css/index.css">
    </head>
    <body>
-      <nav class="navbar navbar-default navbar-xed-top navbar-cor">
+      <!--***********************************************************************************
+         *																																*
+         *                                             menu superior                                                          * 
+         *																																*
+         ************************************************************************************-->
+      <nav class="navbar navbar-inverse .navbar-fixed-top navbar-cor">
          <div class="navbar-header">
             <a class="navbar-brand" href="index.php">INPROV</a>
             <button class="navbar-toggle" type="button"
@@ -25,8 +31,12 @@
             <li><a href="#">Entre em contato <span class="glyphicon glyphicon-envelope"></span></a></li>
          </ul>
       </nav>
-	  
       <div class="container">
+         <!--***********************************************************************************
+            *																																*
+            *                          combo box como parametros de busca                                    * 
+            *																																*
+            ************************************************************************************-->
          <div class="row">
             <fieldset class="col-md-6">
                <label for="Curso">Curso:</label>
@@ -45,49 +55,139 @@
                </select>
             </fieldset>
          </div>
-		 ************************************************
-		 <div class="bs-example" data-example-id="table-within-panel">
-    <div class="panel panel-default">
-      <!-- Default panel contents -->
-      <div class="panel-heading">Panel heading</div>
-      <div class="panel-body">
-        <p>Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-      </div>
+         <!--***********************************************************************************
+            *																																*
+            *                                             tabela com todas as provas                                    * 
+            *																																*
+            ************************************************************************************-->
+         <div class="bs-example tabela-provas" data-example-id="table-within-panel">
+            <div class="panel panel-primary">
+               <!-- Default panel contents -->
+               <div class="panel-heading">Painel de provas</div>
+               <!-- Table -->
+               <table class="table table-responsive">
+                  <thead>
+                     <tr>
+                        <th>Disciplina</th>
+                        <th >Curso</th>
+						<th>Visualizar</th>
+						<th>Download</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>Cálculo I</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
+                     <tr>
+                        <td>Cálculo II</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
+                     <tr>
+                        <td>Cálculo II</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
+					                      <tr>
+                        <td>Cálculo II</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
+					                      <tr>
+                        <td>Cálculo II</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
+					                      <tr>
+                        <td>Cálculo II</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
+					                      <tr>
+                        <td>Cálculo II</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
+					                      <tr>
+                        <td>Cálculo II</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
+					                      <tr>
+                        <td>Cálculo II</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
+					                      <tr>
+                        <td>Cálculo II</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
+					                      <tr>
+                        <td>Cálculo II</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
+					                      <tr>
+                        <td>Cálculo II</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
+					                      <tr>
+                        <td>Cálculo II</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
+					                      <tr>
+                        <td>Cálculo II</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
+					                      <tr>
+                        <td>Cálculo II</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
+					                      <tr>
+                        <td>Cálculo II</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
+					                      <tr>
+                        <td>Cálculo II</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
+					                      <tr>
+                        <td>Cálculo II</td>
+                        <td>Ciência da Computação</td>
+						<td><span class="glyphicon glyphicon-eye-open"></span></td>
+						<td><span class="glyphicon glyphicon-download"></span></td>
+                     </tr>
 
-      <!-- Table -->
-      <table class="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-		 *********************************************
+                  </tbody>
+               </table>
+            </div>
+         </div>
       </div>
    </body>
 </html>
