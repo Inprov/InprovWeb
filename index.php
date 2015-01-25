@@ -81,142 +81,84 @@
                      </tr>
                   </thead>
                   <tbody>
-                     <tr>
-                        <td>NOME DO CURSO</td>
-                        <td>NOME DA DISCIPLINA</td>
-                        <td>NOME DO PROFESSOR</td>
-                        <td>DATA DE APLICAÇÃO</td>
-                        <td><a href="img/Algebra - Elvira Padua 05-05-2010/Algebra - Elvira Padua 05-05-2010 parte1.jpg" title="prova 1" data-gallery = "teste"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-                        <td><span class="glyphicon glyphicon-download"></span></td>
+                     
+			
+            <?php
+            $nome_do_banco = "Algoritmos 2 - Cinthia Cristina 09-07-2010";
+            $diretorio = "img/" . $nome_do_banco."/";
+            $ponteiro = opendir($diretorio);
+            // monta os vetores com os itens encontrados na pasta
+            while ($nome_itens = readdir($ponteiro)) {
+                $itens[] = $nome_itens;
+            }
+
+            // ordena o vetor de itens
+            sort($itens);
+            // percorre o vetor para fazer a separacao entre arquivos e pastas 
+            foreach ($itens as $listar) {
+                // retira "./" e "../" para que retorne apenas pastas e arquivos
+                if ($listar != "." && $listar != "..") {
+
+                    // checa se o tipo de arquivo encontrado é uma pasta
+                    if (!is_dir($listar)) {
+                        // caso FALSO adiciona o item à variável de arquivos
+                        $arquivos[] = $listar;
+                    }
+                }
+            }
+
+            // lista os arquivos se houverem
+            if ($arquivos != "") {
+                foreach ($arquivos as $listar) {
+                    $links .= <<<html
+                    <a href='$diretorio$listar' style="display:none;">
+                        <span class="glyphicon glyphicon-eye-open">
+                        <img src="$diretorio$listar" alt="Apple">
+                    </a><br>
+html;
+                }
+            }
+            if ($arquivos != "") {
+                $qtd = count($arquivos);
+                for ($i = 0; $i < $qtd-1; $i++) {
+                    $listar = $arquivos[$i];
+                    $links2 .= <<<html
+                    <a href='$diretorio$listar' data-gallery='$nome_do_banco'>
+                        <span class="glyphicon glyphicon-eye-open">
+                    </a><br>
+html;
+                }
+            }
+            echo $links2;
+            ?>
+
+			
+
+			<!-- lista com provas -->
+					<?php
+						$conexao = mysqli_connect("127.0.0.1", "root", "", "inprovweb");
+						$dados = mysqli_query($conexao, "SELECT C.NOME CURSO, DC.NOME DISCIPLINA, PF.NOME PROFESSOR, CASE WHEN PV.DATA_APLICADA IS NULL THEN 'NÃO INFORMADO' ELSE PV.DATA_APLICADA END AS DATAAPLICADA 
+																								FROM PROVA PV, PROFESSOR PF, DISCIPLINA_HAS_PROFESSOR DP, DISCIPLINA DC, CURSO_HAS_DISCIPLINA CD, CURSO C, FACULDADE_HAS_CURSO FC, FACULDADE F WHERE
+																									PV.PROFESSOR_IDPROFESSOR = PF.IDPROFESSOR AND
+																									PF.IDPROFESSOR = DP.PROFESSOR_IDPROFESSOR AND
+																									DP.DISCIPLINA_IDDISCIPLINA = DC.IDDISCIPLINA AND
+																									CD.DISCIPLINA_IDDISCIPLINA = DC.IDDISCIPLINA AND
+																									CD.CURSO_IDCURSO = C.IDCURSO AND
+																									FC.CURSO_IDCURSO = C.IDCURSO AND
+																									FC.CURSO_IDCURSO = C.IDCURSO AND
+																									F.IDFACULDADE = FC.FACULDADE_IDFACULDADE;");
+						while ($prova = mysqli_fetch_array($dados)):
+							?>
+							<tr>
+								<td><?=$prova[CURSO]?></td>
+								<td><?=$prova[DISCIPLINA]?></td>
+								<td><?=$prova[PROFESSOR]?></td>
+								<td><?=$prova[DATAAPLICADA]?></td>
+								<td><a href="img/Algebra - Elvira Padua 05-05-2010/Algebra - Elvira Padua 05-05-2010 parte1.jpg" title="prova 1" data-gallery = "teste"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+								<td><span class="glyphicon glyphicon-download"></span></td>
                      </tr>
-                     <tr>
-                        <td>NOME DO CURSO</td>
-                        <td>NOME DA DISCIPLINA</td>
-                        <td>NOME DO PROFESSOR</td>
-                        <td>DATA DE APLICAÇÃO</td>
-                        <td><a href="img/tess.png" title="prova 1" data-gallery="imagem"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-                        <td><span class="glyphicon glyphicon-download"></span></td>
-                     </tr>
-                     <tr>
-                        <td>NOME DO CURSO</td>
-                        <td>NOME DA DISCIPLINA</td>
-                        <td>NOME DO PROFESSOR</td>
-                        <td>DATA DE APLICAÇÃO</td>
-                        <td><span class="glyphicon glyphicon-eye-open"></span></td>
-                        <td><span class="glyphicon glyphicon-download"></span></td>
-                     </tr>
-                     <tr>
-                        <td>NOME DO CURSO</td>
-                        <td>NOME DA DISCIPLINA</td>
-                        <td>NOME DO PROFESSOR</td>
-                        <td>DATA DE APLICAÇÃO</td>
-                        <td><span class="glyphicon glyphicon-eye-open"></span></td>
-                        <td><span class="glyphicon glyphicon-download"></span></td>
-                     </tr>
-                     <tr>
-                        <td>NOME DO CURSO</td>
-                        <td>NOME DA DISCIPLINA</td>
-                        <td>NOME DO PROFESSOR</td>
-                        <td>DATA DE APLICAÇÃO</td>
-                        <td><span class="glyphicon glyphicon-eye-open"></span></td>
-                        <td><span class="glyphicon glyphicon-download"></span></td>
-                     </tr>
-                     <tr>
-                        <td>NOME DO CURSO</td>
-                        <td>NOME DA DISCIPLINA</td>
-                        <td>NOME DO PROFESSOR</td>
-                        <td>DATA DE APLICAÇÃO</td>
-                        <td><span class="glyphicon glyphicon-eye-open"></span></td>
-                        <td><span class="glyphicon glyphicon-download"></span></td>
-                     </tr>
-                     <tr>
-                        <td>NOME DO CURSO</td>
-                        <td>NOME DA DISCIPLINA</td>
-                        <td>NOME DO PROFESSOR</td>
-                        <td>DATA DE APLICAÇÃO</td>
-                        <td><span class="glyphicon glyphicon-eye-open"></span></td>
-                        <td><span class="glyphicon glyphicon-download"></span></td>
-                     </tr>
-                     <tr>
-                        <td>NOME DO CURSO</td>
-                        <td>NOME DA DISCIPLINA</td>
-                        <td>NOME DO PROFESSOR</td>
-                        <td>DATA DE APLICAÇÃO</td>
-                        <td><span class="glyphicon glyphicon-eye-open"></span></td>
-                        <td><span class="glyphicon glyphicon-download"></span></td>
-                     </tr>
-                     <tr>
-                        <td>NOME DO CURSO</td>
-                        <td>NOME DA DISCIPLINA</td>
-                        <td>NOME DO PROFESSOR</td>
-                        <td>DATA DE APLICAÇÃO</td>
-                        <td><span class="glyphicon glyphicon-eye-open"></span></td>
-                        <td><span class="glyphicon glyphicon-download"></span></td>
-                     </tr>
-                     <tr>
-                        <td>NOME DO CURSO</td>
-                        <td>NOME DA DISCIPLINA</td>
-                        <td>NOME DO PROFESSOR</td>
-                        <td>DATA DE APLICAÇÃO</td>
-                        <td><span class="glyphicon glyphicon-eye-open"></span></td>
-                        <td><span class="glyphicon glyphicon-download"></span></td>
-                     </tr>
-                     <tr>
-                        <td>NOME DO CURSO</td>
-                        <td>NOME DA DISCIPLINA</td>
-                        <td>NOME DO PROFESSOR</td>
-                        <td>DATA DE APLICAÇÃO</td>
-                        <td><span class="glyphicon glyphicon-eye-open"></span></td>
-                        <td><span class="glyphicon glyphicon-download"></span></td>
-                     </tr>
-                     <tr>
-                        <td>NOME DO CURSO</td>
-                        <td>NOME DA DISCIPLINA</td>
-                        <td>NOME DO PROFESSOR</td>
-                        <td>DATA DE APLICAÇÃO</td>
-                        <td><span class="glyphicon glyphicon-eye-open"></span></td>
-                        <td><span class="glyphicon glyphicon-download"></span></td>
-                     </tr>
-                     <tr>
-                        <td>NOME DO CURSO</td>
-                        <td>NOME DA DISCIPLINA</td>
-                        <td>NOME DO PROFESSOR</td>
-                        <td>DATA DE APLICAÇÃO</td>
-                        <td><span class="glyphicon glyphicon-eye-open"></span></td>
-                        <td><span class="glyphicon glyphicon-download"></span></td>
-                     </tr>
-                     <tr>
-                        <td>NOME DO CURSO</td>
-                        <td>NOME DA DISCIPLINA</td>
-                        <td>NOME DO PROFESSOR</td>
-                        <td>DATA DE APLICAÇÃO</td>
-                        <td><span class="glyphicon glyphicon-eye-open"></span></td>
-                        <td><span class="glyphicon glyphicon-download"></span></td>
-                     </tr>
-                     <tr>
-                        <td>NOME DO CURSO</td>
-                        <td>NOME DA DISCIPLINA</td>
-                        <td>NOME DO PROFESSOR</td>
-                        <td>DATA DE APLICAÇÃO</td>
-                        <td><span class="glyphicon glyphicon-eye-open"></span></td>
-                        <td><span class="glyphicon glyphicon-download"></span></td>
-                     </tr>
-                     <tr>
-                        <td>NOME DO CURSO</td>
-                        <td>NOME DA DISCIPLINA</td>
-                        <td>NOME DO PROFESSOR</td>
-                        <td>DATA DE APLICAÇÃO</td>
-                        <td><span class="glyphicon glyphicon-eye-open"></span></td>
-                        <td><span class="glyphicon glyphicon-download"></span></td>
-                     </tr>
-                     <tr>
-                        <td>NOME DO CURSO</td>
-                        <td>NOME DA DISCIPLINA</td>
-                        <td>NOME DO PROFESSOR</td>
-                        <td>DATA DE APLICAÇÃO</td>
-                        <td><span class="glyphicon glyphicon-eye-open"></span></td>
-                        <td><span class="glyphicon glyphicon-download"></span></td>
-                     </tr>
+				<?php endwhile; ?>
+					 <tr>
                   </tbody>
                </table>
             </div>
@@ -256,7 +198,7 @@
             </div>
          </div>
 
-		 <a href="img/Algebra - Elvira Padua 05-05-2010/Algebra - Elvira Padua 05-05-2010 parte2.jpg" title="prova 1" data-gallery = "teste"><span class="glyphicon glyphicon-eye-open"></span></a>
+		 <a href="img/Algebra - Elvira Padua 05-05-2010/Algebra - Elvira Padua 05-05-2010 parte2.jpg" title="prova 1" data-gallery = "teste"></a>
 		 <a href="img/Algebra Linear - Maria Alice - 28-02-2011/Algebra Linear - Maria Alice - 28-02-2011 parte1.jpg" title="prova 1" data-gallery = "teste2"><span class="glyphicon glyphicon-eye-open"></span></a>
 		 
       </div>
