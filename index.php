@@ -82,17 +82,27 @@
                   </thead>
                   <tbody>
                      
+         <!--***********************************************************************************
+            *																																*
+            *                               lista os link para exibicao de imagem                                    * 
+            *																																*
+            ************************************************************************************-->
+		
+          	<?php
+			$conexao = mysqli_connect("127.0.0.1", "root", "", "inprovweb");
+			$pastas =  mysqli_query($conexao, "SELECT NOME FROM PASTA WHERE IDPASTA = 1;");
+           
+			while ($pasta = mysqli_fetch_array($pastas)){
+			   $nome_do_banco = $pasta[nome];
+			}
 			
-            <?php
-            $nome_do_banco = "Algoritmos 2 - Cinthia Cristina 09-07-2010";
             $diretorio = "img/" . $nome_do_banco."/";
             $ponteiro = opendir($diretorio);
             // monta os vetores com os itens encontrados na pasta
             while ($nome_itens = readdir($ponteiro)) {
                 $itens[] = $nome_itens;
             }
-
-            // ordena o vetor de itens
+  // ordena o vetor de itens
             sort($itens);
             // percorre o vetor para fazer a separacao entre arquivos e pastas 
             foreach ($itens as $listar) {
@@ -103,6 +113,7 @@
                     if (!is_dir($listar)) {
                         // caso FALSO adiciona o item à variável de arquivos
                         $arquivos[] = $listar;
+						echo $listar;
                     }
                 }
             }
@@ -133,7 +144,6 @@ html;
             ?>
 
 			
-
 			<!-- lista com provas -->
 					<?php
 						$conexao = mysqli_connect("127.0.0.1", "root", "", "inprovweb");
