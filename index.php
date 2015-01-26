@@ -28,7 +28,7 @@
             <span class="glyphicon glyphicon-align-justify"></span></button>
          </div>
          <ul class="nav navbar-nav collapse navbar-collapse">
-            <li><a href="#">Colabore <span class="glyphicon glyphicon-book"></span></a></li>
+            <li><a href="colabore.php">Colabore <span class="glyphicon glyphicon-book"></span></a></li>
             <li><a href="#">Indique um amigo <span class="glyphicon glyphicon-user"></span></a></li>
             <li><a href="#">Perguntas frequentes <span class="glyphicon glyphicon-list-alt"></span></a></li>
             <li><a href="#">Sobre <span class="glyphicon glyphicon-bullhorn"></span></a></li>
