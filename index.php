@@ -97,7 +97,7 @@
                             $pastas = mysqli_query($conexao, "SELECT NOME FROM PASTA WHERE IDPASTA = 1;");
 
                             while ($pasta = mysqli_fetch_array($pastas)) {
-                                $nome_do_banco = $pasta[nome];
+                                $nome_do_banco = $pasta[NOME];
                             }
 
                             $diretorio = "img/" . $nome_do_banco . "/";
@@ -117,7 +117,7 @@
                                     if (!is_dir($listar)) {
                                         // caso FALSO adiciona o item à variável de arquivos
                                         $arquivos[] = $listar;
-                                        echo $listar;
+//                                        echo $listar;
                                     }
                                 }
                             }
@@ -126,25 +126,25 @@
                             if ($arquivos != "") {
                                 foreach ($arquivos as $listar) {
                                     $links .= <<<html
-                    <a href='$diretorio$listar' style="display:none;">
-                        <span class="glyphicon glyphicon-eye-open">
-                        <img src="$diretorio$listar" alt="Apple">
-                    </a>
+                                    <a href='$diretorio$listar' style="display:none;">
+                                        <span class="glyphicon glyphicon-eye-open">
+                                        <img src="$diretorio$listar" alt="Apple">
+                                    </a>
 html;
                                 }
                             }
                             if ($arquivos != "") {
                                 $qtd = count($arquivos);
-                                for ($i = 0; $i < $qtd - 1; $i++) {
+                                for ($i = 0; $i < $qtd; $i++) {
                                     $listar = $arquivos[$i];
                                     $links2 .= <<<html
-                    <a href='$diretorio$listar' data-gallery='$nome_do_banco' style='display:none;'>
-                        <span class="glyphicon glyphicon-eye-open">
-                    </a>
+                                    <a href='$diretorio$listar' data-gallery='$nome_do_banco' style='display:none;'>
+                                        <span class="glyphicon glyphicon-eye-open">
+                                    </a>
 html;
                                 }
                             }
-//                            echo $links2;
+                            echo $links2;
                             ?>
 
 
@@ -156,25 +156,45 @@ html;
                             $conexao->set_charset("utf8");
                             
                             $dados = mysqli_query($conexao, "
-                                SELECT C.NOME CURSO, DC.NOME DISCIPLINA, PF.NOME PROFESSOR, CASE WHEN PV.DATA_APLICADA IS NULL THEN 'NÃO INFORMADO' ELSE PV.DATA_APLICADA END AS DATAAPLICADA 
-                                FROM PROVA PV, PROFESSOR PF, DISCIPLINA_HAS_PROFESSOR DP, DISCIPLINA DC, CURSO_HAS_DISCIPLINA CD, CURSO C, FACULDADE_HAS_CURSO FC, FACULDADE F WHERE
-                                        PV.PROFESSOR_IDPROFESSOR = PF.IDPROFESSOR AND
-                                        PF.IDPROFESSOR = DP.PROFESSOR_IDPROFESSOR AND
-                                        DP.DISCIPLINA_IDDISCIPLINA = DC.IDDISCIPLINA AND
-                                        CD.DISCIPLINA_IDDISCIPLINA = DC.IDDISCIPLINA AND
-                                        CD.CURSO_IDCURSO = C.IDCURSO AND
-                                        FC.CURSO_IDCURSO = C.IDCURSO AND
-                                        FC.CURSO_IDCURSO = C.IDCURSO AND
-                                        F.IDFACULDADE = FC.FACULDADE_IDFACULDADE;");
+SELECT
+     C.NOME CURSO,
+     DC.NOME DISCIPLINA,
+     PF.NOME PROFESSOR,
+     PST.NOME NOMEPASTA,
+     CASE
+     WHEN PV.DATA_APLICADA IS NULL THEN
+          'NÃO INFORMADO'
+     ELSE
+          PV.DATA_APLICADA
+     END AS DATAAPLICADA
+FROM
+     PROVA PV,
+     PROFESSOR PF,
+     DISCIPLINA_HAS_PROFESSOR DP,
+     DISCIPLINA DC,
+     CURSO_HAS_DISCIPLINA CD,
+     CURSO C,
+     FACULDADE_HAS_CURSO FC,
+     FACULDADE F, 
+     PASTA PST
+WHERE
+     PV.PROFESSOR_IDPROFESSOR = PF.IDPROFESSOR
+AND PF.IDPROFESSOR = DP.PROFESSOR_IDPROFESSOR
+AND DP.DISCIPLINA_IDDISCIPLINA = DC.IDDISCIPLINA
+AND CD.DISCIPLINA_IDDISCIPLINA = DC.IDDISCIPLINA
+AND CD.CURSO_IDCURSO = C.IDCURSO
+AND FC.CURSO_IDCURSO = C.IDCURSO
+AND FC.CURSO_IDCURSO = C.IDCURSO
+AND F.IDFACULDADE = FC.FACULDADE_IDFACULDADE;");
                             while ($prova = mysqli_fetch_array($dados)):
-//                                var_dump($prova);
                                 ?>
                                 <tr>
                                     <td><?= $prova[CURSO] ?></td>
                                     <td><?= $prova[DISCIPLINA] ?></td>
                                     <td><?= $prova[PROFESSOR] ?></td>
                                     <td><?= $prova[DATAAPLICADA] ?></td>
-                                    <td><a href="img/Algebra - Elvira Padua 05-05-2010/Algebra - Elvira Padua 05-05-2010 parte1.jpg" title="prova 1" data-gallery = "teste"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                                    <td><a href="img/Algebra - Elvira Padua 05-05-2010/Algebra - Elvira Padua 05-05-2010 parte1.jpg" 
+                                           title="prova 1" data-gallery="<?= $prova[NOMEPASTA]; ?>"><span class="glyphicon glyphicon-eye-open"></span></a></td>
                                     <td><span class="glyphicon glyphicon-download"></span></td>
                                 </tr>
                             <?php endwhile; ?>
@@ -218,8 +238,8 @@ html;
                 </div>
             </div>
 
-            <a href="img/Algebra - Elvira Padua 05-05-2010/Algebra - Elvira Padua 05-05-2010 parte2.jpg" title="prova 1" data-gallery = "teste"></a>
-            <a href="img/Algebra Linear - Maria Alice - 28-02-2011/Algebra Linear - Maria Alice - 28-02-2011 parte1.jpg" title="prova 1" data-gallery = "teste2"><span class="glyphicon glyphicon-eye-open"></span></a>
+<!--            <a href="img/Algebra - Elvira Padua 05-05-2010/Algebra - Elvira Padua 05-05-2010 parte2.jpg" title="prova 1" data-gallery = "teste"></a>
+            <a href="img/Algebra Linear - Maria Alice - 28-02-2011/Algebra Linear - Maria Alice - 28-02-2011 parte1.jpg" title="prova 1" data-gallery = "teste2"><span class="glyphicon glyphicon-eye-open"></span></a>-->
 
         </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
