@@ -82,70 +82,6 @@
                         </thead>
                         <tbody>
 
-                            <!--***********************************************************************************
-                               *																																*
-                               *                               lista os link para exibicao de imagem                                    * 
-                               *																																*
-                               ************************************************************************************-->
-
-                            <?php
-                            $conexao = mysqli_connect("127.0.0.1", "root", "", "inprovweb");
-                            
-                            mysqli_set_charset($conexao, 'utf8');
-                            $conexao->set_charset("utf8");
-                            
-                            $pastas = mysqli_query($conexao, "SELECT NOME FROM PASTA;");
-
-                            while ($pasta = mysqli_fetch_array($pastas)) {
-							unset($itens);
-							unset($listar);
-							unset($arquivos);
-							unset($nome_do_banco);
-
-							$nome_do_banco = $pasta[NOME];
-                  
-
-                            $diretorio = "img/" . $nome_do_banco . "/";
-                            $ponteiro = opendir($diretorio);
-                            // monta os vetores com os itens encontrados na pasta
-
-                            while ($nome_itens = readdir($ponteiro)) {
-                                $itens[] = $nome_itens;
-                            }
-                            // ordena o vetor de itens
-                            sort($itens);
-                            // percorre o vetor para fazer a separacao entre arquivos e pastas 
-
-                            foreach ($itens as $listar) {
-                                // retira "./" e "../" para que retorne apenas pastas e arquivos
-                                if ($listar != "." && $listar != "..") {
-
-                                    // checa se o tipo de arquivo encontrado é uma pasta
-                                    if (!is_dir($listar)) {
-                                        // caso FALSO adiciona o item à variável de arquivos
-                                        $arquivos[] = $listar;
-                                    }
-                                }
-                            }
-
-            
-                            if ($arquivos != "") {
-                                $qtd = count($arquivos);
-                                for ($i = 0; $i < $qtd; $i++) {
-                                    $listar = $arquivos[$i];
-									if($listar != "parte1.jpg"){
-                                    $links2 .= <<<html
-                                    <a href='$diretorio$listar' data-gallery='$nome_do_banco' style='display:none;'>
-                                        <span class="glyphicon glyphicon-eye-open">
-                                    </a>
-html;
-								}}
-                            }
-							}
-                            echo $links2;
-							
-                            ?>
-
 
                             <!-- lista com provas -->
                             <?php
@@ -237,6 +173,80 @@ AND PROVA_IDPROVA = IDPROVA;");
                     </div>
                 </div>
             </div>
+			
+			
+			
+                            <!--***********************************************************************************
+                               *																																*
+                               *                               lista os link para exibicao de imagem                                    * 
+                               *																																*
+                               ************************************************************************************-->
+
+                            <?php
+                            $conexao = mysqli_connect("127.0.0.1", "root", "", "inprovweb");
+                            
+                            mysqli_set_charset($conexao, 'utf8');
+                            $conexao->set_charset("utf8");
+                            
+                            $pastas = mysqli_query($conexao, "SELECT NOME FROM PASTA;");
+
+                            while ($pasta = mysqli_fetch_array($pastas)) {
+							unset($itens);
+							unset($listar);
+							unset($arquivos);
+							unset($nome_do_banco);
+
+							$nome_do_banco = $pasta[NOME];
+                  
+
+                            $diretorio = "img/" . $nome_do_banco . "/";
+                            $ponteiro = opendir($diretorio);
+                            // monta os vetores com os itens encontrados na pasta
+
+                            while ($nome_itens = readdir($ponteiro)) {
+                                $itens[] = $nome_itens;
+                            }
+                            // ordena o vetor de itens
+                            sort($itens);
+                            // percorre o vetor para fazer a separacao entre arquivos e pastas 
+
+                            foreach ($itens as $listar) {
+                                // retira "./" e "../" para que retorne apenas pastas e arquivos
+                                if ($listar != "." && $listar != "..") {
+
+                                    // checa se o tipo de arquivo encontrado é uma pasta
+                                    if (!is_dir($listar)) {
+                                        // caso FALSO adiciona o item à variável de arquivos
+                                        $arquivos[] = $listar;
+                                    }
+                                }
+                            }
+
+            
+                            if ($arquivos != "") {
+                                $qtd = count($arquivos);
+                                for ($i = 0; $i < $qtd; $i++) {
+                                    $listar = $arquivos[$i];
+									if($listar != "parte1.jpg"){
+                                    $links2 .= <<<html
+                                    <a href='$diretorio$listar' data-gallery='$nome_do_banco' style='display:none;'>
+                                        <span class="glyphicon glyphicon-eye-open">
+                                    </a>
+html;
+								}}
+                            }
+							}
+                            echo $links2;
+							
+                            ?>
+							
+							
+							  <!--***********************************************************************************
+                               *																																*
+                               *                         fim  lista os link para exibicao de imagem                                    * 
+                               *																																*
+                               ************************************************************************************-->
+			
         </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
