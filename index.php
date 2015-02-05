@@ -1,3 +1,6 @@
+<?php
+ini_set('default_charset', 'UTF-8');
+?>
 <!doctype html>
 <html>
     <head>
@@ -86,10 +89,10 @@
                             <!-- lista com provas -->
                             <?php
                             $conexao = mysqli_connect("127.0.0.1", "root", "", "inprovweb");
-                            
+
                             mysqli_set_charset($conexao, 'utf8');
                             $conexao->set_charset("utf8");
-                            
+
                             $dados = mysqli_query($conexao, "
 SELECT
      CURSO,
@@ -154,80 +157,88 @@ SELECT
                     </div>
                 </div>
             </div>
-			
-			
-			
-                            <!--***********************************************************************************
-                               *																																*
-                               *                               lista os link para exibicao de imagem                                    * 
-                               *																																*
-                               ************************************************************************************-->
 
-                            <?php
-                            $conexao = mysqli_connect("127.0.0.1", "root", "", "inprovweb");
-                            
-                            mysqli_set_charset($conexao, 'utf8');
-                            $conexao->set_charset("utf8");
-                            
-                            $pastas = mysqli_query($conexao, "SELECT NOME FROM PASTA;");
 
-                            while ($pasta = mysqli_fetch_array($pastas)) {
-							unset($itens);
-							unset($listar);
-							unset($arquivos);
-							unset($nome_do_banco);
 
-							$nome_do_banco = $pasta[NOME];
-                  
+            <!--***********************************************************************************
+               *																																*
+               *                               lista os link para exibicao de imagem                                    * 
+               *																																*
+               ************************************************************************************-->
 
-                            $diretorio = "img/" . $nome_do_banco . "/";
-                            $ponteiro = opendir($diretorio);
-                            // monta os vetores com os itens encontrados na pasta
+            <?php
+            $conexao = mysqli_connect("127.0.0.1", "root", "", "inprovweb");
 
-                            while ($nome_itens = readdir($ponteiro)) {
-                                $itens[] = $nome_itens;
+            mysqli_set_charset($conexao, 'utf8');
+            $conexao->set_charset("utf8");
+
+            $pastas = mysqli_query($conexao, "SELECT NOME FROM PASTA;");
+
+            while ($pasta = mysqli_fetch_array($pastas)) {
+                unset($itens);
+                unset($listar);
+                unset($arquivos);
+                unset($nome_do_banco);
+
+                $nome_do_banco = $pasta[NOME];
+
+                $diretorio = "img/" . $nome_do_banco . "/";
+                $diretorioOriginal = $diretorio;
+                $diretorio = iconv("utf-8", "iso-8859-1", $diretorio);
+
+                $ponteiro = opendir($diretorio);
+                // monta os vetores com os itens encontrados na pasta
+
+                while ($nome_itens = readdir($ponteiro)) {
+//                    if (is_file("$diretorio$nome_itens")) { // Caso você só queira os arquivos pode fazer isso, ou is_dir para pasta
+//                        $itens[] = $nome_itens;
+//                    }
+                    if ($nome_itens != "." && $nome_itens != "..") { // Mas acho que esse é mais rápido
+                        $itens[] = $nome_itens;
+                    }
+                }
+                closedir(); // fechar o ultimo diretorio aberto pelo opendir
+
+                if ($itens) { // É bom verificar, vai que a pasta estava vazia
+                    sort($itens); // ordena o vetor de itens
+                    // percorre o vetor para fazer a separacao entre arquivos e pastas 
+                    foreach ($itens as $listar) {
+                        // retira "./" e "../" para que retorne apenas pastas e arquivos
+                        if ($listar != "." && $listar != "..") {
+
+                            // checa se o tipo de arquivo encontrado é uma pasta
+                            if (!is_dir($listar)) {
+                                // caso FALSO adiciona o item à variável de arquivos
+                                $arquivos[] = $listar;
                             }
-                            // ordena o vetor de itens
-                            sort($itens);
-                            // percorre o vetor para fazer a separacao entre arquivos e pastas 
+                        }
+                    }
+                }
 
-                            foreach ($itens as $listar) {
-                                // retira "./" e "../" para que retorne apenas pastas e arquivos
-                                if ($listar != "." && $listar != "..") {
-
-                                    // checa se o tipo de arquivo encontrado é uma pasta
-                                    if (!is_dir($listar)) {
-                                        // caso FALSO adiciona o item à variável de arquivos
-                                        $arquivos[] = $listar;
-                                    }
-                                }
-                            }
-
-            
-                            if ($arquivos != "") {
-                                $qtd = count($arquivos);
-                                for ($i = 0; $i < $qtd; $i++) {
-                                    $listar = $arquivos[$i];
-									if($listar != "parte1.jpg"){
-                                    $links2 .= <<<html
-                                    <a href='$diretorio$listar' data-gallery='$nome_do_banco' style='display:none;'>
+                if ($arquivos != "") {
+                    $qtd = count($arquivos);
+                    for ($i = 0; $i < $qtd; $i++) {
+                        $listar = $arquivos[$i];
+                        if ($listar != "parte1.jpg") {
+                            $links2 .= <<<html
+                                    <a href='$diretorioOriginal$listar' data-gallery='$nome_do_banco' style='display:noneS;'>
                                         <span class="glyphicon glyphicon-eye-open">
                                     </a>
 html;
-								}}
-                            }
-							}
-                            echo $links2;
-							
-                            ?>
-							
-							
-							  <!--***********************************************************************************
-                               *																																*
-                               *                         fim  lista os link para exibicao de imagem                                    * 
-                               *																																*
-                               ************************************************************************************-->
-			
+                        }
+                    }
+                }
+            }
+            echo $links2;
+            ?>
+
+
+            <!--***********************************************************************************
+            *																																*
+            *                         fim  lista os link para exibicao de imagem                                    * 
+            *																																*
+            ************************************************************************************-->
+
         </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
