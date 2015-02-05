@@ -92,36 +92,17 @@
                             
                             $dados = mysqli_query($conexao, "
 SELECT
-     C.NOME CURSO,
-     DC.NOME DISCIPLINA,
-     PF.NOME PROFESSOR,
-     PST.NOME NOMEPASTA,
+     CURSO,
+     DISCIPLINA,
+     PROFESSOR,
+     PASTA,
      CASE
-     WHEN PV.DATA_APLICADA IS NULL THEN
+     WHEN DATA_APLICADA IS NULL THEN
           'NÃO INFORMADO'
      ELSE
-          PV.DATA_APLICADA
+          DATA_APLICADA
      END AS DATAAPLICADA
-FROM
-     PROVA PV,
-     PROFESSOR PF,
-     DISCIPLINA_HAS_PROFESSOR DP,
-     DISCIPLINA DC,
-     CURSO_HAS_DISCIPLINA CD,
-     CURSO C,
-     FACULDADE_HAS_CURSO FC,
-     FACULDADE F, 
-     PASTA PST
-WHERE
-     PV.PROFESSOR_IDPROFESSOR = PF.IDPROFESSOR
-AND PF.IDPROFESSOR = DP.PROFESSOR_IDPROFESSOR
-AND DP.DISCIPLINA_IDDISCIPLINA = DC.IDDISCIPLINA
-AND CD.DISCIPLINA_IDDISCIPLINA = DC.IDDISCIPLINA
-AND CD.CURSO_IDCURSO = C.IDCURSO
-AND FC.CURSO_IDCURSO = C.IDCURSO
-AND FC.CURSO_IDCURSO = C.IDCURSO
-AND F.IDFACULDADE = FC.FACULDADE_IDFACULDADE
-AND PROVA_IDPROVA = IDPROVA;");
+	FROM DADOS_GERAIS;");
                             while ($prova = mysqli_fetch_array($dados)):
                                 ?>
                                 <tr>
@@ -129,8 +110,8 @@ AND PROVA_IDPROVA = IDPROVA;");
                                     <td><?= $prova[DISCIPLINA] ?></td>
                                     <td><?= $prova[PROFESSOR] ?></td>
                                     <td><?= $prova[DATAAPLICADA] ?></td>
-                                    <td><a href="img/<?= $prova[NOMEPASTA] ?>/parte1.jpg" 
-                                           title="prova 1" data-gallery="<?= $prova[NOMEPASTA]; ?>"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                                    <td><a href="img/<?= $prova[PASTA] ?>/parte1.jpg" 
+                                           title="prova 1" data-gallery="<?= $prova[PASTA]; ?>"><span class="glyphicon glyphicon-eye-open"></span></a></td>
                                     <td><span class="glyphicon glyphicon-download"></span></td>
                                 </tr>
                             <?php endwhile; ?>
